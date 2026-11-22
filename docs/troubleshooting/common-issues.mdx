@@ -65,6 +65,55 @@ If the above doesn't work, do the following:
 5. Import the `SideStore.ipa` file into SideStore like how you would install any other IPA
 6. This will allow SideStore to do a clean refresh, and hopefully fix the issue
 
+### No valid pairing file / "The pairing file format is ambiguous"
+#### Cause
+SideStore fails to properly import the placed pairing file.
+#### Resolution
+1. Settings->Pairing File Management->Click "Reset Pairing Files", then force close the app.
+2. Download and install [idevice_pair](https://github.com/jkcoxson/idevice_pair/#installation).
+3. Connect your device to your computer, and select it in idevice_pair.
+4. Place the pairing file:
+- iOS version \<17.4: choose lockdown -> click load
+- iOS version \>=17.4: choose remote pairing -> click create (may ask you to trust the computer)
+5. Relaunch SideStore, and it will ask for a pairing file. Click select, and import the file at:
+- Standalone SideStore: "On My iPhone/iPad > SideStore > ALTPairingFile.mobiledevicepairing"
+- LiveContainer+SideStore: "On My iPhone/iPad > LiveContainer > SideStore > Documents > ALTPairingFile.mobiledevicepairing"
+6. Restart SideStore again
+
+### Could not locate signing certificate for "App" / context.targetAppBundle is nil
+#### Cause
+SideStore is looking for the app bundle in the wrong directory
+#### Resolution
+**If it's an application installed via an IPA:**
+1. Click on the '+' button in the top left
+2. Import the IPA of the app, and reinstall it. Do **NOT** delete the app, if you wish to keep all of your data.
+
+**If it's an application installed via a source / if the application is SideStore itself:**
+1. Long press the app
+2. Click reinstall->from source
+
+### Login Errors (503, -22441, -45063)
+#### Cause
+Apple changes anisette frequently, which can break SideStore a lot.
+#### Resolution
+1. Settings -> User Customizations -> On-Device Anisette: OFF
+2. Settings -> Anisette Servers -> Select "SideStore (new)"
+3. Settings -> Anisette Servers -> Enable Auto Rotation: OFF
+4. Settings -> User Customizations -> Anisette Client Config -> Scroll down, click "Remote Server Sync" and then save as overrides
+5. Settings -> User Customizations -> Reset adi.pb (keep headers)
+6. Sign in like normal
+
+:::note
+
+If these steps don't work, you may want to repeat them, but with a different anisette server. Working alternatives include:
+
+- "SideStore (Windows ADI)"
+- "jkcoxson"
+- "jkcoxson (Windows ADI)"
+- "Lill q"
+
+:::
+
 ### I couldn't find my issue here
 #### Resolution
 Please check our [comprehensive troubleshooting guide](/docs/troubleshooting).
